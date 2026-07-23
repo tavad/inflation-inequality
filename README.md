@@ -16,6 +16,10 @@ The article itself is not included here (it is published closed-access). This
 repository is the replication material referenced in the paper's data
 availability statement.
 
+![Category decomposition of the low−high inflation gap by COICOP division and income tier (Figure 4).](plots/png/gap_decomposition.png)
+
+*Figure 4: the low−high inflation gap decomposed by COICOP division and income tier. Rebuild it with `Rscript R/make_decomposition_figure.R`.*
+
 ## Requirements
 
 - R (>= 4.1), with `tidyverse`, `jsonlite`, `here`, `ggrepel`, `countrycode`.

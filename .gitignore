@@ -1,0 +1,22 @@
+# R / RStudio
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+*.Rproj.user
+.Rproj.user/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# regenerable heavy artefacts (kept out of git; regenerate with the scripts)
+plots/tiff/
+data/gcd_raw/
+data/imf_cpi_coicop_all_long.csv
+data/imf_cpi_coicop_long.csv
+data/imf_cpi_coicop_wide.csv

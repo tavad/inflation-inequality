@@ -63,35 +63,38 @@ w("*Notes:* means over the ", nrow(rel), " estimation-sample countries, split by
   " countries). The low-vs-high food-share gap is the Engel gradient the paper exploits. *Source:* author's calculations from Eurostat and World Bank income-group weights.\n")
 
 # ---- Table 2 : headline results (curated) ----------------------------------
+f2 <- function(x) { x <- round(x, 2); x[x == 0] <- 0; formatC(x, format = "f", digits = 2) }
 mkrow <- function(r) w("| ", str_trunc(r$name, 24), " | ", f1(r$national), " | ",
-                       f1(r$low), " | ", f1(r$mid), " | ", f1(r$high), " | ", f1(r$gap), " |")
-top  <- rel |> arrange(desc(gap)) |> slice_head(n = 15)
-conv <- rel |> arrange(gap)       |> slice_head(n = 5) |> arrange(desc(gap))
+                       f1(r$low), " | ", f1(r$mid), " | ", f1(r$high), " | ", f2(r$ratio), " | ", f1(r$gap), " |")
+top  <- rel |> arrange(desc(ratio)) |> slice_head(n = 15)
+conv <- rel |> arrange(ratio)       |> slice_head(n = 5) |> arrange(desc(ratio))
 w("## Table 2 — Cumulative inflation by income group, curated (%, 2021-01 to 2024-12)\n")
-w("| Country | All-items | Low | Mid | High | Gap (low−high, pp) |")
-w("|---|--:|--:|--:|--:|--:|")
+w("| Country | All-items | Low | Mid | High | Ratio (%) | Gap (low−high, pp) |")
+w("|---|--:|--:|--:|--:|--:|--:|")
 for (i in seq_len(nrow(top)))  mkrow(top[i, ])
-w("| *(", nrow(rel) - nrow(top) - nrow(conv), " more; see App. B)* | | | | | |")
+w("| *(", nrow(rel) - nrow(top) - nrow(conv), " more; see App. B)* | | | | | | |")
 for (i in seq_len(nrow(conv))) mkrow(conv[i, ])
 w("")
 w("*Summary (all ", nrow(rel), "):* the low-income basket faces the highest of the three group rates in ",
   sum(rel$highest == "low"), " of ", nrow(rel),
-  " countries; median low−high gap ", f1(median(rel$gap)),
-  " pp (dispersion, max−min, ", f1(median(rel$divergence)), " pp). Full ", nrow(rel),
+  " countries. Median ratio ", f2(median(rel$ratio)), "% pooled (GCD segments ", f2(median(rel$ratio[str_detect(rel$tier, "GCD")])),
+  "%, HBS quintiles ", f2(median(rel$ratio[str_detect(rel$tier, "HBS")])), "%); the pooled figure mixes two income-group definitions and is a sensitivity check only. Median low−high gap ",
+  f1(median(rel$gap)), " pp (dispersion, max−min, ", f1(median(rel$divergence)), " pp). Full ", nrow(rel),
   "-country table in Appendix B. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
 
 # ---- Table 4 : weights-sensitivity ladder (max−min divergence) -------------
+dratio <- function(df) median(((1 + pmax(df$low, df$mid, df$high) / 100) / (1 + pmin(df$low, df$mid, df$high) / 100) - 1) * 100)
 mm  <- rel |> left_join(src, by = "country")
 hbs <- mm |> filter(source == "HBS_2020")
 w("## Table 4 — Weights-sensitivity ladder (median max−min divergence, pp)\n")
-w("| Weighting | Countries | Median divergence | Low-income highest |")
-w("|---|--:|--:|--:|")
+w("| Weighting | Countries | Median divergence (pp) | Median max/min ratio (%) | Low-income highest |")
+w("|---|--:|--:|--:|--:|")
 w("| Uniform hand-set basket (poor ≈ 60% food) | ", nrow(hnd), " | ", f1(median(hnd$divergence)),
-  " | ", sum(hnd$highest=="low"), " / ", nrow(hnd), " |")
+  " | ", f2(dratio(hnd)), " | ", sum(hnd$highest=="low"), " / ", nrow(hnd), " |")
 w("| **Per-country real baskets (HBS + GCD)** | **", nrow(rel), "** | **", f1(median(rel$divergence)),
-  "** | **", sum(rel$highest=="low"), " / ", nrow(rel), "** |")
+  "** | **", f2(dratio(rel)), "** | **", sum(rel$highest=="low"), " / ", nrow(rel), "** |")
 w("| Developed EU/HBS baskets only (≈ 18% food) | ", nrow(hbs), " | ", f1(median(hbs$divergence)),
-  " | ", sum(hbs$highest=="low"), " / ", nrow(hbs), " |")
+  " | ", f2(dratio(hbs)), " | ", sum(hbs$highest=="low"), " / ", nrow(hbs), " |")
 w("")
 w("*Notes:* all three rows use max−min divergence (the metric they share); the headline low−high gap (Table 2) is a strictly smaller quantity. The direction holds across all three; the magnitude tracks food-share × inflation level, so the developed, low-food, low-inflation basket set collapses the gap. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
 
@@ -99,17 +102,17 @@ w("*Notes:* all three rows use max−min divergence (the metric they share); the
 full <-
   rel |> left_join(src, by = "country") |>
   mutate(tier = if_else(source == "HBS_2020", "HBS", "GCD")) |>
-  arrange(desc(gap))
+  arrange(desc(ratio))
 w("## Table B1 (Appendix B) — Full ", nrow(full), "-country results (%, 2021-01 to 2024-12)\n")
-w("| Country | Source | All-items | Low | Mid | High | Gap (low−high, pp) |")
-w("|---|:--|--:|--:|--:|--:|--:|")
+w("| Country | Source | All-items | Low | Mid | High | Ratio (%) | Gap (low−high, pp) |")
+w("|---|:--|--:|--:|--:|--:|--:|--:|")
 for (i in seq_len(nrow(full))) {
   r <- full[i, ]
   w("| ", str_trunc(r$name, 26), " | ", r$tier, " | ", f1(r$national), " | ",
-    f1(r$low), " | ", f1(r$mid), " | ", f1(r$high), " | ", f1(r$gap), " |")
+    f1(r$low), " | ", f1(r$mid), " | ", f1(r$high), " | ", f2(r$ratio), " | ", f1(r$gap), " |")
 }
 w("")
-w("*Notes:* all ", nrow(full), " reliable countries, sorted by the low−high gap; Source = weight origin (HBS = Eurostat quintiles, GCD = World Bank segments). Armenia is excluded from the ", nrow(full), ": its World Bank Global Consumption Database \"higher\"-income basket fails the noise filter (it places an implausible share of spending on recreation), so its low/mid/high triple is untrustworthy and non-monotone (§6.3). *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
+w("*Notes:* all ", nrow(full), " reliable countries, sorted by the ratio; Source = weight origin (HBS = Eurostat quintiles, GCD = World Bank segments). Armenia is excluded from the ", nrow(full), ": its World Bank Global Consumption Database \"higher\"-income basket fails the noise filter (it places an implausible share of spending on recreation), so its low/mid/high triple is untrustworthy and non-monotone (§6.3). *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
 
 close(out)
 cat("wrote outputs/tables_1_4.md\n")

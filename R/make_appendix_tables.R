@@ -155,22 +155,23 @@ summarise_haircut <- function(frac) {
     filter(country %in% dev_ids) |>
     rowwise() |>
     mutate(gap = low - high,
+           ratio = ((1 + low / 100) / (1 + high / 100) - 1) * 100,
            low_top = !anyNA(c(low, mid, high)) &&
                      which.max(c(low, mid, high)) == 1) |>
     ungroup()
   tibble(frac = frac, n = nrow(g),
-         med_gap = median(g$gap), low_highest = sum(g$low_top))
+         med_gap = median(g$gap), med_ratio = median(g$ratio), low_highest = sum(g$low_top))
 }
 
 vint <- bind_rows(lapply(HAIRCUTS, summarise_haircut))
 lab  <- function(fr) if (fr == 0) "None (headline, 2010 basket)" else paste0("−", formatC(fr * 100, format = "f", digits = 0), "% relative")
 
 w("## Table C1 (Appendix C) — Weight base-period sensitivity, developing tier (%, 2021-01 to 2024-12)\n")
-w("| Developing-tier food-share adjustment | Countries | Median low−high gap (pp) | Low-income highest |")
-w("|---|--:|--:|--:|")
+w("| Developing-tier food-share adjustment | Countries | Median ratio (%) | Median low−high gap (pp) | Low-income highest |")
+w("|---|--:|--:|--:|--:|")
 for (i in seq_len(nrow(vint))) {
   r <- vint[i, ]
-  w("| ", lab(r$frac), " | ", r$n, " | ", f1(r$med_gap), " | ", r$low_highest, " / ", r$n, " |")
+  w("| ", lab(r$frac), " | ", r$n, " | ", formatC(round(r$med_ratio, 2), format = "f", digits = 2), " | ", f1(r$med_gap), " | ", r$low_highest, " / ", r$n, " |")
 }
 w("")
 base_med <- vint$med_gap[vint$frac == 0]

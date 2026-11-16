@@ -70,6 +70,7 @@ core <- function(start, end, min_months = 24) {
     rowwise() |>
     mutate(divergence = max(low, mid, high) - min(low, mid, high),
            gap = low - high,
+           ratio = ((1 + low / 100) / (1 + high / 100) - 1) * 100,
            highest = if (anyNA(c(low, mid, high))) NA_character_
                      else c("low","mid","high")[which.max(c(low, mid, high))]) |>
     ungroup() |>
@@ -165,15 +166,15 @@ windows <- tribble(
 # compute each window row once, then both the table and the note read from `rows`
 rows <- lapply(seq_len(nrow(windows)), function(i) {
   cr <- core(windows$start[i], windows$end[i], MINM)$rel   # 42-month bar → headline row = locked 51/2.1/44
-  list(lab = windows$lab[i], n = nrow(cr), med_gap = median(cr$gap),
+  list(lab = windows$lab[i], n = nrow(cr), med_gap = median(cr$gap), med_ratio = median(cr$ratio),
        low_hi = sum(cr$highest == "low"), med_mm = median(cr$divergence))
 })
 names(rows) <- c("baseline", "headline", "extended")
 w("## Table 5 — Window and falsification robustness (per-country baskets)\n")
-w("| Window | Countries | Median low−high gap (pp) | Low-income highest | Median max−min (pp) |")
-w("|---|--:|--:|--:|--:|")
+w("| Window | Countries | Median ratio (%) | Median low−high gap (pp) | Low-income highest | Median max−min (pp) |")
+w("|---|--:|--:|--:|--:|--:|")
 for (r in rows)
-  w("| ", r$lab, " | ", r$n, " | ", f1(r$med_gap), " | ", r$low_hi, " / ", r$n, " | ", f1(r$med_mm), " |")
+  w("| ", r$lab, " | ", r$n, " | ", formatC(round(r$med_ratio, 2), format = "f", digits = 2), " | ", f1(r$med_gap), " | ", r$low_hi, " / ", r$n, " | ", f1(r$med_mm), " |")
 w("")
 P <- rows$baseline; H2 <- rows$headline; E <- rows$extended
 w("*Notes:* same per-country HBS+GCD baskets and the same reconciliation + complete-triple filters as the ",

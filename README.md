@@ -1,22 +1,12 @@
 # Replication: A Lower Bound on Inflation Inequality
 
-Code and data to reproduce the tables and figures in *A Lower Bound on Inflation
-Inequality: Cross-Country Evidence From Developed and Developing Economies*
-(Aghasi Tavadyan).
+Code and data to reproduce the tables and figures in *A Lower Bound on Inflation Inequality: Cross-Country Evidence From Developed and Developing Economies* (Aghasi Tavadyan).
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21510423.svg)](https://doi.org/10.5281/zenodo.21510423)
 
-The paper measures the between-category basket channel of inflation inequality:
-income groups face different inflation because their consumption baskets differ
-(low-income baskets are food-heavy, high-income baskets carry more services). It
-applies per-country income-group expenditure weights to each country's category
-price paths and reports the cumulative low/mid/high inflation gap over 2021-01 to
-2024-12, for the 51 countries whose category indices reconcile to the official
-all-items CPI.
+The paper measures the between-category basket channel of inflation inequality: income groups face different inflation because their consumption baskets differ (low-income baskets are food-heavy, high-income baskets carry more services). It applies per-country income-group expenditure weights to each country's category price paths and reports the cumulative low/mid/high inflation gap over 2021-01 to 2024-12, for the 51 countries whose category indices reconcile to the official all-items CPI.
 
-The article itself is not included here (it is published closed-access). This
-repository is the replication material referenced in the paper's data
-availability statement.
+The article itself is not included here (it is published closed-access). This repository is the replication material referenced in the paper's data availability statement.
 
 ![Category decomposition of the low−high inflation gap by COICOP division and income tier (Figure 4).](plots/png/gap_decomposition.png)
 
@@ -24,20 +14,14 @@ availability statement.
 
 ## Requirements
 
-- R (>= 4.1), with `tidyverse`, `jsonlite`, `here`, `ggrepel`, `countrycode`.
-  Run `Rscript install.R` to get them. `sf`, `rnaturalearth`, `rnaturalearthdata`
-  are optional and only feed an unused coverage map, which skips itself if they
-  are absent.
-- Python 3 with `openpyxl` (`pip install openpyxl`), only if you rebuild the
-  World Bank weights from the raw XLSX.
+- R (>= 4.1), with `tidyverse`, `jsonlite`, `here`, `ggrepel`, `countrycode`. Run `Rscript install.R` to get them. `sf`, `rnaturalearth`, `rnaturalearthdata` are optional and only feed an unused coverage map, which skips itself if they are absent.
+- Python 3 with `openpyxl` (`pip install openpyxl`), only if you rebuild the World Bank weights from the raw XLSX.
 
-Paths resolve through `here::here()`, anchored on the `.here` file (or `.git`) at
-the repo root, so the scripts run from any location without editing.
+Paths resolve through `here::here()`, anchored on the `.here` file (or `.git`) at the repo root, so the scripts run from any location without editing.
 
 ## Reproduce from the bundled data (offline)
 
-The price panel and weights are included, so the tables and figures rebuild with
-no network access. From the repo root:
+The price panel and weights are included, so the tables and figures rebuild with no network access. From the repo root:
 
 ```bash
 Rscript R/group_cpi_divergence.R 2021-01 2024-12 42 handset   # 108-country stress test
@@ -48,36 +32,35 @@ Rscript R/make_tables_extra.R      # Tables 3, 5            -> outputs/tables_ex
 Rscript R/make_ratio_tables.R      # ratio tables           -> outputs/tables_ratio.md
 Rscript R/make_appendix_tables.R   # Tables A1, A2, C1      -> outputs/tables_appendix.md
 Rscript R/make_appendix_figures.R  # Figures D1, D2
+Rscript R/r1_01_aplus_numbers.R    # ratio by weight source, division, year -> outputs/r1_01_aplus_numbers.md
+for s in R/rev_0*.R; do Rscript "$s"; done   # revision tests -> outputs/revision/
+python3 -I R/assemble_revision_tables.py     # revision tables -> outputs/tables_revision.md
 ```
 
-Figures are written to `plots/png/` and `plots/tiff/`. The `outputs/` directory
-already holds the expected `.md` tables and result CSVs, so you can diff your run
-against them.
+Figures are written to `plots/png/` and `plots/tiff/`. The `outputs/` directory already holds the expected `.md` tables and result CSVs, so you can diff your run against them.
 
 ## Rebuild the databases from the primary sources
 
-For full provenance, the data can be rebuilt from scratch (needs internet, and
-the World Bank XLSX for the developing-tier weights). Order:
+For full provenance, the data can be rebuilt from scratch (needs internet, and the World Bank XLSX for the global-segment weights). Order:
 
 ```bash
 Rscript R/pull_imf_cpi_all.R              # IMF CPI (DBnomics)      -> data/imf_cpi_coicop_all_wide.csv
 Rscript R/pull_hbs_weights.R              # Eurostat HBS            -> data/hbs_weights_by_country.csv
 python3 R/pull_gcd_weights.py             # World Bank GCD xlsx     -> data/gcd_weights_long.csv
 Rscript R/build_group_weights_master.R    # merge HBS + GCD         -> data/group_weights_master.csv
+Rscript R/rev_hbs_pull.R                  # Eurostat HBS, all waves  -> data/revision/hbs_str_t223_long.csv
+Rscript R/rev_hicp_pull.R                 # Eurostat HICP            -> data/revision/hicp_midx_long.csv
+python3 R/rev_gcd_segments.py             # World Bank GCD xlsx      -> data/revision/gcd_segments.csv, gcd_energy.csv
 ```
 
-The World Bank Global Consumption Database XLSX is not shipped (size and microdata
-terms). Download it from Microdata Library catalog 4424
-(https://microdata.worldbank.org/index.php/catalog/4424, DOI 10.48529/0s8s-xk76),
-put it under `data/gcd_raw/`, then run `pull_gcd_weights.py`. Full per-dataset
-provenance and terms are in [DATA_SOURCES.md](DATA_SOURCES.md).
+The World Bank Global Consumption Database XLSX is not shipped (size and microdata terms). Download it from Microdata Library catalog 4424 (https://microdata.worldbank.org/index.php/catalog/4424, DOI 10.48529/0s8s-xk76), put it under `data/gcd_raw/`, then run `pull_gcd_weights.py`. Full per-dataset provenance and terms are in [DATA_SOURCES.md](DATA_SOURCES.md).
 
 ## Layout
 
 ```
 R/         analysis and data-pull scripts (see the table below)
-data/      the price panel + income-group weights the analysis reads
-outputs/   result CSVs and the generated tables (.md)
+data/      the price panel + income-group weights the analysis reads (data/revision/: inputs of the revision tests)
+outputs/   result CSVs and the generated tables (.md); outputs/revision/ holds the revision tests
 plots/png/ the paper's figures (regenerated by the scripts)
 ```
 
@@ -96,10 +79,13 @@ plots/png/ the paper's figures (regenerated by the scripts)
 | `R/make_decomposition_figure.R` | Figure 4: category decomposition (chart form of Table 3) |
 | `R/make_appendix_tables.R` | Tables A1 (crosswalk), A2 (dropped countries), C1 (weight base-period) |
 | `R/make_appendix_figures.R` | Figures D1, D2 (the Sw=1 normalization-hazard demo) |
+| `R/r1_01_aplus_numbers.R` | ratio by weight source, by division and by calendar year for the 51 countries -> `outputs/r1_01_*` |
+| `R/rev_common.R` | shared loaders for the revision tests |
+| `R/rev_01` to `R/rev_09` | revision tests: ratio measure, national quintiles rebuilt from GCD segments, weight waves, index formulas, imputed rent, finer categories, energy and sub-periods, revised headline, normalisation -> `outputs/revision/` |
+| `R/rev_hbs_pull.R`, `R/rev_hicp_pull.R`, `R/rev_gcd_segments.py` | pulls for the revision tests -> `data/revision/` |
+| `R/rev_run_all.sh` | runs the three pulls and the nine tests in order |
+| `R/assemble_revision_tables.py` | collects the revision tables -> `outputs/tables_revision.md` |
 
 ## License
 
-Code is MIT (see [LICENSE](LICENSE)). The data keep their sources' terms; see
-[DATA_SOURCES.md](DATA_SOURCES.md). If you use this material, please cite the
-paper and the archived release (Zenodo, DOI
-[10.5281/zenodo.21510423](https://doi.org/10.5281/zenodo.21510423)).
+Code is MIT (see [LICENSE](LICENSE)). The data keep their sources' terms; see [DATA_SOURCES.md](DATA_SOURCES.md). If you use this material, please cite the paper and the archived release (Zenodo, DOI [10.5281/zenodo.21510423](https://doi.org/10.5281/zenodo.21510423)).

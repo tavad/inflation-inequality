@@ -70,7 +70,7 @@ dec <-
   inner_join(select(W, country, coicop, low, high), by = c("country", "coicop")) |>
   mutate(contrib = (low - high) * cum) |>
   left_join(distinct(W, country, source), by = "country") |>
-  mutate(tier = if_else(source == "HBS_2020", "Developed", "Developing"))
+  mutate(tier = if_else(source == "HBS_2020", "National quintiles", "Global segments"))
 
 # validation (same as Table 4)
 val <-
@@ -89,9 +89,8 @@ plotdat <-
   inner_join(c_all, by = "coicop") |>
   mutate(dlab = paste0(coicop, " ", str_trunc(division, 34)),
          dlab = fct_reorder(dlab, all),
-         tier = factor(tier, levels = c("Developing", "Developed")))
-
-TIER_COLS <- c(Developing = "#E6550D", Developed = "#1F78B4")
+         tier = factor(tier, levels = c("Global segments", "National quintiles")))
+TIER_COLS <- c("Global segments" = "#E6550D", "National quintiles" = "#1F78B4")
 
 p <- ggplot(plotdat, aes(mean_c, dlab, fill = tier)) +
   geom_col(position = position_dodge(width = 0.68), width = 0.62, alpha = 0.9) +
@@ -103,7 +102,7 @@ p <- ggplot(plotdat, aes(mean_c, dlab, fill = tier)) +
        x = "contribution to the low−high cumulative gap (pp)", y = NULL,
        caption = paste0(
          "Each bar is the mean of (w_low − w_high) × cumulative inflation for that division. Food (01) does the\n",
-         "work, especially in the developing tier; transport, restaurants and recreation, which the better-off\n",
+         "work, especially among the global-segment countries; transport, restaurants and recreation, which the better-off\n",
          sprintf("overweight, pull the other way. Static-weight reconstruction tracks the chained gap within %s pp on average (%s pp at most).\n", f1(val_mae), f1(val_max)),
          "Source: IMF category CPI; income-group weights from Eurostat HBS and the World Bank Global\n",
          "Consumption Database. Author's calculations.")) +

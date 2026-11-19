@@ -29,7 +29,7 @@ w("*Notes:* the twelve COICOP-1999 divisions (01–12) plus the all-items aggreg
   "published monthly in the IMF Consumer Price Index database (accessed via DBnomics). Each ",
   "division maps one-to-one to a fixed IMF indicator stem, so there is no discretion in the ",
   "mapping on the price side. Row 00 (all items, stem `PCPI`) is the aggregate the reconciliation ",
-  "filter of Equation (5) reconstructs from the twelve divisions. ",
+  "filter of Equation (4) reconstructs from the twelve divisions. ",
   "*Source:* IMF Consumer Price Index database (COICOP divisions), accessed via DBnomics.\n")
 
 # --- Table A2: countries dropped by the reconciliation filter (Appendix A.3) ---
@@ -57,7 +57,7 @@ w("")
 w("*Notes:* the filter reconstructs all-items inflation from the twelve COICOP divisions using each ",
   "country's own official weights (renormalized to $\\sum_k w = 1$) and drops any country whose ",
   "reconstruction misses the published all-items figure by more than $\\max(5\\text{ pp}, 15\\%)$ ",
-  "(Equation (5)). Of ", n_qual, " countries with a complete twelve-division panel and a matched ",
+  "(Equation (4)). Of ", n_qual, " countries with a complete twelve-division panel and a matched ",
   "income-group basket, these ", n_drop, " fail, leaving 68. “NA” marks countries that publish no ",
   "official division weights and so cannot be reconciled even in principle. Zambia's reconstruction is ",
   "the clearest rebasing/base-period mismatch (near 400% against a published ~69%). ",
@@ -166,8 +166,8 @@ summarise_haircut <- function(frac) {
 vint <- bind_rows(lapply(HAIRCUTS, summarise_haircut))
 lab  <- function(fr) if (fr == 0) "None (headline, 2010 basket)" else paste0("−", formatC(fr * 100, format = "f", digits = 0), "% relative")
 
-w("## Table C1 (Appendix C) — Weight base-period sensitivity, developing tier (%, 2021-01 to 2024-12)\n")
-w("| Developing-tier food-share adjustment | Countries | Median ratio (%) | Median low−high gap (pp) | Low-income highest |")
+w("## Table C1 (Appendix C) — Weight base-period sensitivity, global segments (%, 2021-01 to 2024-12)\n")
+w("| Global-segment food-share adjustment | Countries | Median ratio (%) | Median low−high gap (pp) | Low-income highest |")
 w("|---|--:|--:|--:|--:|")
 for (i in seq_len(nrow(vint))) {
   r <- vint[i, ]
@@ -175,11 +175,11 @@ for (i in seq_len(nrow(vint))) {
 }
 w("")
 base_med <- vint$med_gap[vint$frac == 0]
-w("*Notes:* the developing-tier (GCD 2010) food share is reduced by the stated relative fraction for ",
+w("*Notes:* the global-segment (GCD 2010) food share is reduced by the stated relative fraction for ",
   "every income group, with the removed weight redistributed proportionally across the other eleven ",
   "divisions so each basket still sums to one. The group index is then recomputed by the method of ",
   "Equations (1)–(3). The sample is the ", vint$n[1], " reliable, non-noisy, complete-triple ",
-  "developing-tier countries and is held fixed across rows (reliability uses official, not group, ",
+  "global-segment countries and is held fixed across rows (reliability uses official, not group, ",
   "weights). The median low−high gap falls monotonically from ", f1(base_med), " pp as the assumed ",
   "food share is cut, but the regressive direction is unbroken, with the low-income basket remaining ",
   "the highest-inflation basket in every row, so the base-period mismatch bounds the magnitude without ",

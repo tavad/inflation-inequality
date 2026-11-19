@@ -51,15 +51,15 @@ comp <-
   summarise(low = mean(low) * 100, high = mean(high) * 100, .groups = "drop")
 g <- function(t, cc, grp) { v <- comp |> filter(tier == t, coicop == cc) |> pull({{grp}}); if (length(v)) f1(v) else "–" }
 w("## Table 1 — Basket composition by income group (mean expenditure share, %)\n")
-w("| COICOP division | Developing: low | Developing: high | Developed: low | Developed: high |")
+w("| COICOP division | Global segments: low | Global segments: high | National quintiles: low | National quintiles: high |")
 w("|---|--:|--:|--:|--:|")
 for (i in seq_len(nrow(key))) {
   cc <- key$coicop[i]
   w("| ", key$label[i], " | ", g("dev",cc,low), " | ", g("dev",cc,high), " | ", g("developed",cc,low), " | ", g("developed",cc,high), " |")
 }
 w("")
-w("*Notes:* means over the ", nrow(rel), " estimation-sample countries, split by weight source (Developing = GCD 2010, ",
-  n_dev, " countries; Developed = HBS 2020, ", n_developed,
+w("*Notes:* means over the ", nrow(rel), " estimation-sample countries, split by weight source (Global segments = GCD 2010, ",
+  n_dev, " countries; National quintiles = HBS 2020, ", n_developed,
   " countries). The low-vs-high food-share gap is the Engel gradient the paper exploits. *Source:* author's calculations from Eurostat and World Bank income-group weights.\n")
 
 # ---- Table 2 : headline results (curated) ----------------------------------
@@ -93,10 +93,10 @@ w("| Uniform hand-set basket (poor ≈ 60% food) | ", nrow(hnd), " | ", f1(media
   " | ", f2(dratio(hnd)), " | ", sum(hnd$highest=="low"), " / ", nrow(hnd), " |")
 w("| **Per-country real baskets (HBS + GCD)** | **", nrow(rel), "** | **", f1(median(rel$divergence)),
   "** | **", f2(dratio(rel)), "** | **", sum(rel$highest=="low"), " / ", nrow(rel), "** |")
-w("| Developed EU/HBS baskets only (≈ 18% food) | ", nrow(hbs), " | ", f1(median(hbs$divergence)),
+w("| Eurostat (national-quintile) countries, own baskets (≈ 18% food) | ", nrow(hbs), " | ", f1(median(hbs$divergence)),
   " | ", f2(dratio(hbs)), " | ", sum(hbs$highest=="low"), " / ", nrow(hbs), " |")
 w("")
-w("*Notes:* all three rows use max−min divergence (the metric they share); the headline low−high gap (Table 2) is a strictly smaller quantity. The direction holds across all three; the magnitude tracks food-share × inflation level, so the developed, low-food, low-inflation basket set collapses the gap. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
+w("*Notes:* all three rows use max−min divergence (the metric they share); the low−high gap in Table 2 is a strictly smaller quantity. The direction holds across all three; the magnitude tracks food-share × inflation level, so the developed, low-food, low-inflation basket set collapses the gap. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
 
 # ---- Table B1 (Appendix B) : full 51-country results -----------------------
 full <-

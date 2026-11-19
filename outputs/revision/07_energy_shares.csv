@@ -1,0 +1,115 @@
+country,item,low,high,source,poor_more
+BE,household energy (04.5),6.3646170442286945,4.428044280442804,HBS 2020 (ex imputed rent),TRUE
+BG,household energy (04.5),19.129287598944593,8.526187576126674,HBS 2020 (ex imputed rent),TRUE
+DK,household energy (04.5),9.783728115345006,5.853658536585367,HBS 2020 (ex imputed rent),TRUE
+DE,household energy (04.5),8.096740273396424,4.6650717703349285,HBS 2020 (ex imputed rent),TRUE
+EE,household energy (04.5),11.580086580086581,5.291005291005291,HBS 2020 (ex imputed rent),TRUE
+IE,household energy (04.5),9.501187648456057,4.609475032010243,HBS 2020 (ex imputed rent),TRUE
+GR,household energy (04.5),10.526315789473683,5.992509363295881,HBS 2020 (ex imputed rent),TRUE
+ES,household energy (04.5),6.801007556675064,4.8,HBS 2020 (ex imputed rent),TRUE
+FR,household energy (04.5),5.907626208378089,4.326923076923077,HBS 2020 (ex imputed rent),TRUE
+HR,household energy (04.5),15.927977839335181,7.281553398058252,HBS 2020 (ex imputed rent),TRUE
+CY,household energy (04.5),5.555555555555555,4.009433962264151,HBS 2020 (ex imputed rent),TRUE
+LV,household energy (04.5),16.125,5.6105610561056105,HBS 2020 (ex imputed rent),TRUE
+LT,household energy (04.5),15.012722646310433,7.367149758454106,HBS 2020 (ex imputed rent),TRUE
+LU,household energy (04.5),4.35244161358811,2.857142857142857,HBS 2020 (ex imputed rent),TRUE
+HU,household energy (04.5),13.556338028169016,8.245877061469265,HBS 2020 (ex imputed rent),TRUE
+MT,household energy (04.5),3.9,2.2022022022022023,HBS 2020 (ex imputed rent),TRUE
+NL,household energy (04.5),5.213764337851929,4.081632653061225,HBS 2020 (ex imputed rent),TRUE
+AT,household energy (04.5),5.913978494623656,3.634361233480176,HBS 2020 (ex imputed rent),TRUE
+PL,household energy (04.5),13.358778625954198,8.571428571428571,HBS 2020 (ex imputed rent),TRUE
+SI,household energy (04.5),11.72161172161172,5.777777777777778,HBS 2020 (ex imputed rent),TRUE
+SK,household energy (04.5),18.337408312958438,10.46373365041617,HBS 2020 (ex imputed rent),TRUE
+FI,household energy (04.5),2.88153681963714,4.63980463980464,HBS 2020 (ex imputed rent),FALSE
+NO,household energy (04.5),7.785087719298247,7.604562737642586,HBS 2020 (ex imputed rent),TRUE
+ME,household energy (04.5),14.354644149577805,8.224076281287248,HBS 2020 (ex imputed rent),TRUE
+RS,household energy (04.5),16.520650813516895,9.37142857142857,HBS 2020 (ex imputed rent),TRUE
+TR,household energy (04.5),8.863636363636363,3.8288288288288284,HBS 2020 (ex imputed rent),TRUE
+BE,"operation of vehicles (07.2, incl. fuel)",4.314994606256742,5.535055350553505,HBS 2020 (ex imputed rent),FALSE
+BG,"operation of vehicles (07.2, incl. fuel)",0.9234828496042217,9.378806333739343,HBS 2020 (ex imputed rent),FALSE
+DK,"operation of vehicles (07.2, incl. fuel)",3.5015447991761075,9.390243902439025,HBS 2020 (ex imputed rent),FALSE
+DE,"operation of vehicles (07.2, incl. fuel)",4.206098843322819,8.61244019138756,HBS 2020 (ex imputed rent),FALSE
+EE,"operation of vehicles (07.2, incl. fuel)",4.329004329004329,5.952380952380952,HBS 2020 (ex imputed rent),FALSE
+IE,"operation of vehicles (07.2, incl. fuel)",5.581947743467933,6.530089628681178,HBS 2020 (ex imputed rent),FALSE
+GR,"operation of vehicles (07.2, incl. fuel)",3.182374541003672,7.240948813982522,HBS 2020 (ex imputed rent),FALSE
+ES,"operation of vehicles (07.2, incl. fuel)",6.045340050377834,7.333333333333333,HBS 2020 (ex imputed rent),FALSE
+FR,"operation of vehicles (07.2, incl. fuel)",5.155746509129968,6.009615384615385,HBS 2020 (ex imputed rent),FALSE
+HR,"operation of vehicles (07.2, incl. fuel)",4.293628808864266,11.529126213592233,HBS 2020 (ex imputed rent),FALSE
+CY,"operation of vehicles (07.2, incl. fuel)",9.66183574879227,8.018867924528301,HBS 2020 (ex imputed rent),TRUE
+LV,"operation of vehicles (07.2, incl. fuel)",2.5,9.02090209020902,HBS 2020 (ex imputed rent),FALSE
+LT,"operation of vehicles (07.2, incl. fuel)",4.8346055979643765,7.487922705314009,HBS 2020 (ex imputed rent),FALSE
+LU,"operation of vehicles (07.2, incl. fuel)",6.050955414012739,7.210884353741497,HBS 2020 (ex imputed rent),FALSE
+HU,"operation of vehicles (07.2, incl. fuel)",3.873239436619718,9.5952023988006,HBS 2020 (ex imputed rent),FALSE
+MT,"operation of vehicles (07.2, incl. fuel)",4.8,7.4074074074074066,HBS 2020 (ex imputed rent),FALSE
+NL,"operation of vehicles (07.2, incl. fuel)",2.502606882168926,9.123649459783914,HBS 2020 (ex imputed rent),FALSE
+AT,"operation of vehicles (07.2, incl. fuel)",5.591397849462366,8.590308370044053,HBS 2020 (ex imputed rent),FALSE
+PL,"operation of vehicles (07.2, incl. fuel)",4.325699745547073,8,HBS 2020 (ex imputed rent),FALSE
+SI,"operation of vehicles (07.2, incl. fuel)",7.57020757020757,12.88888888888889,HBS 2020 (ex imputed rent),FALSE
+SK,"operation of vehicles (07.2, incl. fuel)",2.93398533007335,6.4209274673008325,HBS 2020 (ex imputed rent),FALSE
+FI,"operation of vehicles (07.2, incl. fuel)",4.16221985058698,8.302808302808302,HBS 2020 (ex imputed rent),FALSE
+NO,"operation of vehicles (07.2, incl. fuel)",4.714912280701754,6.2103929024081115,HBS 2020 (ex imputed rent),FALSE
+ME,"operation of vehicles (07.2, incl. fuel)",2.6537997587454765,9.296781883194278,HBS 2020 (ex imputed rent),FALSE
+RS,"operation of vehicles (07.2, incl. fuel)",2.5031289111389237,9.714285714285714,HBS 2020 (ex imputed rent),FALSE
+TR,"operation of vehicles (07.2, incl. fuel)",2.9545454545454546,6.86936936936937,HBS 2020 (ex imputed rent),FALSE
+BA,household energy (04.5),8.710276976253615,5.304108782425543,GCD 2010 rebuilt quintiles,TRUE
+BA,motor fuel (07.2.2),4.721219221006117,6.013906965625103,GCD 2010 rebuilt quintiles,FALSE
+BG,household energy (04.5),12.297656097171386,8.29296165722827,GCD 2010 rebuilt quintiles,TRUE
+BG,motor fuel (07.2.2),0.6163269394344821,2.1526363861048803,GCD 2010 rebuilt quintiles,FALSE
+BO,household energy (04.5),2.875018072783298,3.1189849102034675,GCD 2010 rebuilt quintiles,FALSE
+BO,motor fuel (07.2.2),0.22411515206681482,1.7323233020335127,GCD 2010 rebuilt quintiles,FALSE
+BY,household energy (04.5),0.6604937148139773,0.14572300508702668,GCD 2010 rebuilt quintiles,TRUE
+BY,motor fuel (07.2.2),1.5557986123925187,3.9738881079580026,GCD 2010 rebuilt quintiles,FALSE
+CG,household energy (04.5),4.256389487815144,3.259265113511447,GCD 2010 rebuilt quintiles,TRUE
+CG,motor fuel (07.2.2),0.1270321340627542,1.7748269862983508,GCD 2010 rebuilt quintiles,FALSE
+CI,household energy (04.5),2.375809367924004,2.283453381519372,GCD 2010 rebuilt quintiles,TRUE
+CI,motor fuel (07.2.2),0.7862144204883523,3.08367776869348,GCD 2010 rebuilt quintiles,FALSE
+CO,household energy (04.5),5.916278772682056,2.354224585133238,GCD 2010 rebuilt quintiles,TRUE
+CO,motor fuel (07.2.2),0.7141064002431121,3.837895613493853,GCD 2010 rebuilt quintiles,FALSE
+CV,household energy (04.5),3.9394637052489467,3.89675626481072,GCD 2010 rebuilt quintiles,TRUE
+CV,motor fuel (07.2.2),0.036002575913054086,2.281028141060509,GCD 2010 rebuilt quintiles,FALSE
+EG,household energy (04.5),2.769179201291391,2.2648814721815103,GCD 2010 rebuilt quintiles,TRUE
+EG,motor fuel (07.2.2),0.12511758850685223,1.671284577130644,GCD 2010 rebuilt quintiles,FALSE
+FJ,household energy (04.5),7.484373467853795,4.9963825625721,GCD 2010 rebuilt quintiles,TRUE
+FJ,motor fuel (07.2.2),0.8167884433248151,3.746257947982159,GCD 2010 rebuilt quintiles,FALSE
+GA,household energy (04.5),5.074556670971245,4.7457024298037265,GCD 2010 rebuilt quintiles,TRUE
+GA,motor fuel (07.2.2),0.06847517878101125,3.490298660945458,GCD 2010 rebuilt quintiles,FALSE
+GM,household energy (04.5),1.937465328562894,3.6680365328219984,GCD 2010 rebuilt quintiles,FALSE
+GM,motor fuel (07.2.2),0.2519505760720843,1.3401143567320923,GCD 2010 rebuilt quintiles,FALSE
+IQ,household energy (04.5),9.0863481408414,6.107180413906802,GCD 2010 rebuilt quintiles,TRUE
+IQ,motor fuel (07.2.2),0.1297540246909047,3.9086242812157987,GCD 2010 rebuilt quintiles,FALSE
+JO,household energy (04.5),4.932488603556344,3.837950600160664,GCD 2010 rebuilt quintiles,TRUE
+JO,motor fuel (07.2.2),1.1201888291796285,1.3261421128123594,GCD 2010 rebuilt quintiles,FALSE
+KE,household energy (04.5),4.12381121925731,4.311574322955788,GCD 2010 rebuilt quintiles,FALSE
+KE,motor fuel (07.2.2),0.122954600817194,3.6222056888416247,GCD 2010 rebuilt quintiles,FALSE
+LS,household energy (04.5),7.627315574984197,5.375894483570845,GCD 2010 rebuilt quintiles,TRUE
+LS,motor fuel (07.2.2),0.042108885697041215,1.3562270535498764,GCD 2010 rebuilt quintiles,FALSE
+LT,household energy (04.5),4.132691292406729,3.636562307261847,GCD 2010 rebuilt quintiles,TRUE
+LT,motor fuel (07.2.2),3.2925604725879456,5.49514712360419,GCD 2010 rebuilt quintiles,FALSE
+LV,household energy (04.5),11.269123818570764,6.9079356208905205,GCD 2010 rebuilt quintiles,TRUE
+LV,motor fuel (07.2.2),3.5276912337799318,6.148673015405889,GCD 2010 rebuilt quintiles,FALSE
+MA,household energy (04.5),8.38095771738989,4.052457642218978,GCD 2010 rebuilt quintiles,TRUE
+MA,motor fuel (07.2.2),0.22432217812867367,1.8953634287909324,GCD 2010 rebuilt quintiles,FALSE
+MD,household energy (04.5),1.6212743879146636,0.3254003040431035,GCD 2010 rebuilt quintiles,TRUE
+MD,motor fuel (07.2.2),1.2966926514426724,4.6107782025411765,GCD 2010 rebuilt quintiles,FALSE
+ME,household energy (04.5),11.420286044966153,7.845930895118588,GCD 2010 rebuilt quintiles,TRUE
+ME,motor fuel (07.2.2),3.4292222866462647,3.467110279368677,GCD 2010 rebuilt quintiles,FALSE
+MK,household energy (04.5),5.140528526332094,11.748448384096651,GCD 2010 rebuilt quintiles,FALSE
+MK,motor fuel (07.2.2),1.81791757724798,3.958697421523516,GCD 2010 rebuilt quintiles,FALSE
+MR,household energy (04.5),2.1176347026485955,4.0344920037449565,GCD 2010 rebuilt quintiles,FALSE
+MR,motor fuel (07.2.2),0.07095758500726412,2.594365422932457,GCD 2010 rebuilt quintiles,FALSE
+MW,household energy (04.5),2.4728422786085695,4.478024054208719,GCD 2010 rebuilt quintiles,FALSE
+MW,motor fuel (07.2.2),0.022046216517973057,2.740726490519262,GCD 2010 rebuilt quintiles,FALSE
+MX,household energy (04.5),6.465701031066528,3.2535426845245627,GCD 2010 rebuilt quintiles,TRUE
+MX,motor fuel (07.2.2),2.01244132034247,5.948986147278065,GCD 2010 rebuilt quintiles,FALSE
+MY,household energy (04.5),4.531860324385279,3.1136364433480965,GCD 2010 rebuilt quintiles,TRUE
+MY,motor fuel (07.2.2),6.554608838153955,7.956590719043434,GCD 2010 rebuilt quintiles,FALSE
+NA,household energy (04.5),3.7630274893665243,3.7258794777881863,GCD 2010 rebuilt quintiles,TRUE
+NA,motor fuel (07.2.2),0.9557062196294335,3.5380782747405837,GCD 2010 rebuilt quintiles,FALSE
+NG,household energy (04.5),1.9357605561823976,1.8698222387724142,GCD 2010 rebuilt quintiles,TRUE
+NG,motor fuel (07.2.2),0.0716431231816191,0.16611690930127737,GCD 2010 rebuilt quintiles,FALSE
+RS,household energy (04.5),7.302240476150487,3.933373498006719,GCD 2010 rebuilt quintiles,TRUE
+RS,motor fuel (07.2.2),2.0844397203439855,3.517276510595203,GCD 2010 rebuilt quintiles,FALSE
+RW,household energy (04.5),4.860062735769004,4.604055863779128,GCD 2010 rebuilt quintiles,TRUE
+RW,motor fuel (07.2.2),0.04289079189288373,2.1507466452089257,GCD 2010 rebuilt quintiles,FALSE
+TR,household energy (04.5),7.975061139393976,6.328876747973343,GCD 2010 rebuilt quintiles,TRUE
+TR,motor fuel (07.2.2),2.1523039525959704,5.031544612695488,GCD 2010 rebuilt quintiles,FALSE

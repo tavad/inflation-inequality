@@ -128,7 +128,7 @@ tab5 <-
 
 N <- nrow(rel)                                    # panel size, referenced in prose below
 w("## Table 3 — Category decomposition of the low−high gap (mean contribution, pp)\n")
-w("| COICOP division | All ", N, " | Developing | Developed |")
+w("| COICOP division | All ", N, " | Global segments | National quintiles |")
 w("|---|--:|--:|--:|")
 for (i in seq_len(nrow(tab5))) {
   r <- tab5[i, ]
@@ -139,18 +139,18 @@ w("| **Total = mean low−high gap** | **", f1(sum(tab5$all)), "** | **", f1(sum
 w("")
 w("*Note on the total:* the column totals are the mean low−high gap (true mean ", f1(mean(rel$gap)),
   " pp over the ", N, "; the ", f1(sum(tab5$all)), " pp shown is the reconstructed mean, within rounding), ",
-  "which exceeds the ", f1(median(rel$gap)), " pp median headline because the distribution is right-skewed by the ",
+  "which exceeds the median of ", f1(median(rel$gap)), " pp because the distribution is right-skewed by the ",
   "food-heavy tail (Malawi, Egypt); the decomposition is naturally additive in means, not medians. ",
-  "The tier split (developing ", f1(mean(rel$gap[rel$source != "HBS_2020"])),
-  " pp vs developed ", f1(mean(rel$gap[rel$source == "HBS_2020"])), " pp) is where the channel lives.")
+  "The split by weight source (global segments ", f1(mean(rel$gap[rel$source != "HBS_2020"])),
+  " pp, national quintiles ", f1(mean(rel$gap[rel$source == "HBS_2020"])), " pp) is where the between-category component lives.")
 top_pos  <- tab5$division[which.max(tab5$all)]
 neg_divs <- tab5 |> filter(all < 0) |> arrange(all) |> slice_head(n = 3) |> pull(division)
 neg_lbl  <- paste(tolower(neg_divs), collapse = ", ")
 w("*Reading:* each cell is the mean across countries of $(w^{low}_k - w^{high}_k)\\,I_k$, the ",
   "share-gap of division $k$ times its cumulative inflation $I_k$: the percentage points that ",
   "division adds to (or subtracts from) the low−high gap. ", top_pos, " does the work everywhere; the ",
-  "categories the better-off overweight (", neg_lbl, ") pull the other way. The channel is a ",
-  "developing-tier phenomenon, where the food share-gap is widest.")
+  "categories the better-off overweight (", neg_lbl, ") pull the other way. The between-category component is a ",
+  "global-segment phenomenon, where the food share-gap is widest.")
 w("*Validation:* the static-weight reconstruction $\\tilde{gap}=\\sum_k(w^{low}_k-w^{high}_k)I_k$ ",
   "tracks the true chained low−high gap with a mean absolute error of ", f1(val_mae), " pp (maximum ",
   f1(val_max), " pp) over the ", N, ", so the decomposition is a faithful attribution of the headline gap. ",
@@ -160,7 +160,7 @@ w("*Validation:* the static-weight reconstruction $\\tilde{gap}=\\sum_k(w^{low}_
 windows <- tribble(
   ~lab,                              ~start,     ~end,
   "2015-01 to 2019-12 (pre-shock baseline)", "2015-01", "2019-12",
-  "2021-01 to 2024-12 (headline)",          "2021-01", "2024-12",
+  "2021-01 to 2024-12 (main window)",        "2021-01", "2024-12",
   "2021-01 to 2025-06 (extended)",          "2021-01", "2025-06"
 )
 # compute each window row once, then both the table and the note read from `rows`
@@ -171,7 +171,7 @@ rows <- lapply(seq_len(nrow(windows)), function(i) {
 })
 names(rows) <- c("baseline", "headline", "extended")
 w("## Table 5 — Window and falsification robustness (per-country baskets)\n")
-w("| Window | Countries | Median ratio (%) | Median low−high gap (pp) | Low-income highest | Median max−min (pp) |")
+w("| Window | Countries | Median ratio (%), pooled | Median low−high gap (pp) | Low-income highest | Median max−min (pp) |")
 w("|---|--:|--:|--:|--:|--:|")
 for (r in rows)
   w("| ", r$lab, " | ", r$n, " | ", formatC(round(r$med_ratio, 2), format = "f", digits = 2), " | ", f1(r$med_gap), " | ", r$low_hi, " / ", r$n, " | ", f1(r$med_mm), " |")
@@ -182,12 +182,12 @@ w("*Notes:* same per-country HBS+GCD baskets and the same reconciliation + compl
   "across windows because the balanced-panel and reconciliation requirements select different countries ",
   "(the 2025-06 endpoint is reached by fewer countries; the pre-shock window predates some series), so ",
   "the rows are not a within-country time series and their magnitudes are not directly differenced. The ",
-  "falsification test carries the reading: in the flat-relative-price 2015–19 window the channel is nearly ",
+  "falsification test carries the reading: in the flat-relative-price 2015–19 window the between-category component is nearly ",
   "quiescent, with a median gap of ", f1(P$med_gap), " pp, dispersion of ", f1(P$med_mm), " pp, and the low ",
   "basket highest in only ", P$low_hi, " of ", P$n, ". Over the 2021–24 surge it opens to ", f1(H2$med_gap),
   " pp and ", H2$low_hi, " of ", H2$n, ". The regressive direction survives into the 2025-06 extension (",
   E$low_hi, " of ", E$n, "); its larger median there reflects sample composition, not a within-country ",
-  "widening. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
+  "widening. Pooled medians mix two income-group definitions, so they are used here only to compare windows. *Source:* author's calculations from IMF, Eurostat, and World Bank data.\n")
 
 close(out)
 cat("wrote outputs/tables_extra.md\n")

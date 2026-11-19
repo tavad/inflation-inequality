@@ -173,26 +173,28 @@ res |> filter(!reliable) |> arrange(desc(abs(recon_gap))) |> slice_head(n = 12) 
   as.data.frame() |> print(row.names = FALSE)
 
 # --- figures (reliable countries only) ---------------------------------------
+rel <- rel |> filter(!is.na(ratio))
 npos <- sum(rel$ratio > 0)
 nneg <- sum(rel$ratio < 0)
-basket_desc <- if (wmode == "master") "Per-country income baskets" else "Uniform hand-set basket"
 TIER_COLS <- c("GCD global segments" = "#E31A1C", "HBS national quintiles" = "#1F78B4")
+basket_desc <- if (wmode == "master") "Per-country income baskets" else "Uniform hand-set basket"
 
 SRC <- paste0("Source: IMF category CPI; income-group weights from Eurostat HBS and the World Bank\n",
               "Global Consumption Database. Author's calculations.")
 
+tiers_n <- rel |> count(tier)
 p1 <- rel |>
   ggplot(aes(ratio, fill = tier)) +
-  geom_histogram(bins = 35, alpha = 0.85) +
+  geom_histogram(bins = 35, alpha = 0.85, position = "stack") +
   geom_vline(xintercept = 0, colour = "grey55") +
   scale_fill_manual(values = TIER_COLS, name = "Weight source") +
   scale_x_continuous(breaks = scales::pretty_breaks(8)) +
   labs(
     title = sprintf("Low- vs high-income basket prices, %d countries, %s–%s",
                     nrow(rel), format(start, "%Y"), format(end, "%Y")),
-    subtitle = sprintf("%s; low-income basket dearer in %d of %d countries (%d below zero)",
+    subtitle = sprintf("%s; low-income basket more expensive in %d of %d countries (%d below zero)",
                        basket_desc, npos, nrow(rel), nneg),
-    x = "(1 + low-income inflation) / (1 + high-income inflation) − 1 (%)", y = "countries",
+    x = "(1 + low-income inflation) / (1 + high-income inflation) − 1  (%)", y = "countries",
     caption = SRC
   ) +
   theme_minimal() +
@@ -213,7 +215,7 @@ topl <-
   mutate(grp = factor(grp, levels = c("Low", "Middle", "High")))
 grp_cols <- c(Low = "#E31A1C", Middle = "#1F78B4", High = "#33A02C")
 outl_note <- if (nrow(outl))
-  sprintf("Excluded for scale: %s. See Table 3 / B1.",
+  sprintf("Excluded for scale: %s. See Table B1.",
           paste(sprintf("%s (%.0f%% cumulative, ratio %.1f%%)",
                         clean_name(outl$name), outl$national, outl$ratio), collapse = "; ")) else NULL
 p2 <- topn |>
@@ -225,8 +227,8 @@ p2 <- topn |>
   scale_shape_manual(values = c(Low = 16, Middle = 17, High = 16), name = "Income group") +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.12))) +
   labs(
-    title = "The twenty largest basket ratios: low vs middle vs high cumulative inflation",
-    subtitle = sprintf("%s, %s–%s; label = (1 + low) / (1 + high) − 1",
+    title = "The twenty largest low/high price-level ratios: cumulative inflation by income group",
+    subtitle = sprintf("%s, %s–%s; label = (1+low)/(1+high) − 1",
                        basket_desc, format(start, "%Y"), format(end, "%Y")),
     x = "cumulative group inflation (%)", y = NULL,
     caption = paste(c(outl_note, SRC), collapse = "\n")
@@ -262,11 +264,11 @@ p3 <- mech |>
   geom_text_repel(data = labs_df, aes(label = name), size = 2.9, colour = "grey25",
                   min.segment.length = 0, box.padding = 0.5, max.overlaps = Inf, seed = 1) +
   labs(
-    title = "Low/high ratio versus the relative price of food",
+    title = "Low/high price-level ratio versus the relative price of food",
     subtitle = sprintf("Pearson r = %.2f across all %d; %.2f excluding %s",
                        rmech, nrow(mech), rmech_x, drop_lbl),
-    x = "(1 + food inflation) / (1 + all-items inflation) − 1 (%)",
-    y = "(1 + low) / (1 + high) − 1 (%)", caption = SRC
+    x = "(1 + food inflation) / (1 + all-items inflation) − 1  (%)",
+    y = "(1 + low) / (1 + high) − 1  (%)", caption = SRC
   ) +
   theme_minimal() +
   theme(legend.position = "top", plot.caption = element_text(colour = "grey35", hjust = 0, size = 8))
@@ -299,12 +301,12 @@ if (have_map) {
     # blue = high-income basket hit harder (gap<0); red = low-income hit harder (gap>0);
     # near-white = in-sample ~0; distinct muted grey = country not in the sample.
     scale_fill_gradient2(low = "#2166AC", mid = "#f7f7f7", high = "#B2182B",
-                         midpoint = 0, na.value = "grey78", name = "(1 + low) /\n(1 + high) − 1 (%)") +
+                         midpoint = 0, na.value = "grey78", name = "(1+low)/\n(1+high)−1 (%)") +
     coord_sf(crs = "+proj=robin") +
     labs(
-      title = sprintf("Low/high basket ratio by country, %s–%s",
+      title = sprintf("Low-income basket price level relative to high-income, by country, %s–%s",
                       format(start, "%Y"), format(end, "%Y")),
-      subtitle = sprintf("(1 + low) / (1 + high) − 1 (%%), %d countries; grey = not in sample", nrow(mapd))
+      subtitle = sprintf("low-income relative to high-income price level, %d countries; grey = not in sample", nrow(mapd))
     ) +
     theme_void()
   save_fig(p4, paste0("group_cpi_divergence_map", tag), width = 8.5, height = 5, dpi = 150)

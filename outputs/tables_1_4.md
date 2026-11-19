@@ -1,6 +1,6 @@
 ## Table 1 — Basket composition by income group (mean expenditure share, %)
 
-| COICOP division | Developing: low | Developing: high | Developed: low | Developed: high |
+| COICOP division | Global segments: low | Global segments: high | National quintiles: low | National quintiles: high |
 |---|--:|--:|--:|--:|
 | Food & non-alcoholic beverages | 51.4 | 18.5 | 21.0 | 15.3 |
 | Housing, water, electricity, gas & fuels | 18.1 | 19.5 | 39.4 | 27.9 |
@@ -8,7 +8,7 @@
 | Recreation & culture | 1.7 | 4.9 | 4.6 | 7.3 |
 | Restaurants & hotels | 2.3 | 4.1 | 3.4 | 6.4 |
 
-*Notes:* means over the 51 estimation-sample countries, split by weight source (Developing = GCD 2010, 25 countries; Developed = HBS 2020, 26 countries). The low-vs-high food-share gap is the Engel gradient the paper exploits. *Source:* author's calculations from Eurostat and World Bank income-group weights.
+*Notes:* means over the 51 estimation-sample countries, split by weight source (Global segments = GCD 2010, 25 countries; National quintiles = HBS 2020, 26 countries). The low-vs-high food-share gap is the Engel gradient the paper exploits. *Source:* author's calculations from Eurostat and World Bank income-group weights.
 
 ## Table 2 — Cumulative inflation by income group, curated (%, 2021-01 to 2024-12)
 
@@ -44,9 +44,9 @@
 |---|--:|--:|--:|--:|
 | Uniform hand-set basket (poor ≈ 60% food) | 108 | 5.3 | 4.46 | 94 / 108 |
 | **Per-country real baskets (HBS + GCD)** | **51** | **2.6** | **2.13** | **44 / 51** |
-| Developed EU/HBS baskets only (≈ 18% food) | 26 | 0.9 | 0.74 | 20 / 26 |
+| Eurostat (national-quintile) countries, own baskets (≈ 18% food) | 26 | 0.9 | 0.74 | 20 / 26 |
 
-*Notes:* all three rows use max−min divergence (the metric they share); the headline low−high gap (Table 2) is a strictly smaller quantity. The direction holds across all three; the magnitude tracks food-share × inflation level, so the developed, low-food, low-inflation basket set collapses the gap. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
+*Notes:* all three rows use max−min divergence (the metric they share); the low−high gap in Table 2 is a strictly smaller quantity. The direction holds across all three; the magnitude tracks food-share × inflation level, so the developed, low-food, low-inflation basket set collapses the gap. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
 
 ## Table B1 (Appendix B) — Full 51-country results (%, 2021-01 to 2024-12)
 

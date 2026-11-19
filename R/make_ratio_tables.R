@@ -39,7 +39,6 @@ for (i in seq_len(nrow(tier_tab))) {
     " | ", fmt(r$max, 1), " | ", fmt(r$med_pp), " |")
 }
 w("")
-w("*Notes:* ratio = (1 + low-income inflation) / (1 + high-income inflation) − 1. GCD uses global income segments and HBS national quintiles, so the groups are not the same thing in the two rows. The pooled row is a sensitivity check only. ", SRC)
 
 rk <-
   rel |>
@@ -58,7 +57,6 @@ for (i in seq_len(nrow(show))) {
     fmt(r$high, 1), " | ", fmt(r$gap, 1), " | ", fmt(r$ratio), " | ", r$rank_pp, " | ", r$rank_ratio, " |")
 }
 w("")
-w("*Notes:* Spearman correlation of the two rankings: ", fmt(cor(rk$gap, rk$ratio, method = "spearman")), ". ", SRC)
 
 wide <-
   read_csv(file.path(HERE, "data", "imf_cpi_coicop_all_wide.csv"), show_col_types = FALSE) |>
@@ -95,7 +93,6 @@ for (s in specs) {
   w("| ", s[[1]], " | ", cc(m[[s[[2]]]], m[[s[[3]]]]), " | ", cc(m[[s[[2]]]], m[[s[[3]]]], "spearman"), " | ", nrow(m), " |")
 }
 w("")
-w("*Notes:* relative food price = (1 + food inflation) / (1 + all-items inflation) − 1. ", SRC)
 
 divn <- DIVISIONS |> filter(coicop != "00") |> select(coicop, division)
 cum_t <-
@@ -169,16 +166,7 @@ for (b in c(TRUE, FALSE)) {
   w("| ", if (b) "dearer" else "cheaper", " | ", nrow(z), " | ", fmt(median(z$ratio)), " | ", sum(z$ratio > 0), " |")
 }
 w("")
-w("*Notes:* group inflation is chained within the calendar year, and a country-year needs all 12 months. Correlation of the ratio with the relative price of food over country-years: ",
-  fmt(cor(yr$ratio, yr$rel_food, use = "complete.obs")), ". ", SRC)
 write_csv(yr, file.path(HERE, "outputs", "ratio_subperiods.csv"))
-
-out_mid <- rel |> filter(mid > pmax(low, high) | mid < pmin(low, high))
-rest    <- rel |> filter(!country %in% out_mid$country)
-w("## Middle group outside the low-high range\n")
-w(nrow(out_mid), " of ", nrow(rel), " countries: ", paste(out_mid$name, collapse = ", "), ". Their median absolute ratio is ",
-  fmt(median(abs(out_mid$ratio))), "%, against ", fmt(median(abs(rest$ratio))), "% for the other ", nrow(rest),
-  " (Wilcoxon p = ", fmt(wilcox.test(abs(out_mid$ratio), abs(rest$ratio), exact = FALSE)$p.value, 3), ").\n")
 
 mk <- function(df, title) {
   df <- arrange(df, desc(ratio))

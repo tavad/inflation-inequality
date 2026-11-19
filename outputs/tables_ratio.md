@@ -6,8 +6,6 @@
 | HBS national quintiles | 26 | 20 | 0.74 | 0.11 to 1.99 | 4.6 | 0.89 |
 | pooled (sensitivity only) | 51 | 44 | 1.62 | 0.57 to 4.13 | 21.1 | 2.11 |
 
-*Notes:* ratio = (1 + low-income inflation) / (1 + high-income inflation) − 1. GCD uses global income segments and HBS national quintiles, so the groups are not the same thing in the two rows. The pooled row is a sensitivity check only. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
-
 ## Ranking by ratio (top 10, Türkiye, bottom 6)
 
 | Country | Weight source | All-items | Low | High | Gap (pp) | Ratio | Rank (pp) | Rank (ratio) |
@@ -30,8 +28,6 @@
 | Slovakia | HBS | 33.0 | 32.8 | 32.9 | -0.1 | -0.10 | 47 | 47 |
 | Hungary | HBS | 47.6 | 43.4 | 43.5 | -0.1 | -0.06 | 46 | 46 |
 
-*Notes:* Spearman correlation of the two rankings: 0.99. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
-
 ## Ratio and the relative price of food
 
 | Specification | Pearson | Spearman | n |
@@ -43,8 +39,6 @@
 | Ratio on relative food price, HBS | -0.05 | -0.13 | 26 |
 | Ratio on all-items inflation | 0.33 | 0.23 | 51 |
 | Gap (pp) on all-items inflation | 0.53 | 0.30 | 51 |
-
-*Notes:* relative food price = (1 + food inflation) / (1 + all-items inflation) − 1. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
 
 ## Cumulative inflation and expenditure shares by COICOP division (medians, %)
 
@@ -78,12 +72,6 @@
 |---|--:|--:|--:|
 | dearer | 150 | 0.68 | 113 |
 | cheaper | 52 | -0.16 | 18 |
-
-*Notes:* group inflation is chained within the calendar year, and a country-year needs all 12 months. Correlation of the ratio with the relative price of food over country-years: 0.65. *Source:* author's calculations from IMF, Eurostat, and World Bank data.
-
-## Middle group outside the low-high range
-
-9 of 51 countries: Moldova, Lesotho, Namibia, Malaysia, Netherlands, Jordan, Hungary, Slovakia, Luxembourg. Their median absolute ratio is 0.34%, against 2.59% for the other 42 (Wilcoxon p = 0.001).
 
 ## Country results by weight source (%, 2021-01 to 2024-12)
 
